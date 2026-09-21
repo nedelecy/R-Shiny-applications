@@ -1,0 +1,63 @@
+name: Update data for WHO VISTA app
+
+on:
+  schedule:
+    - cron: "0 5 * * *"      # every day at 05:00 UTC (edit as needed)
+  workflow_dispatch:          # lets you run it manually from the Actions tab
+
+permissions:
+  contents: write             # needed to commit the refreshed .rds files
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    env:
+      # Secrets
+      #API_KEY: ${{ secrets.API_KEY }}          # Settings > Secrets and variables > Actions
+      # Variables 
+      XMART_API_PUBLIC_URL: ${{ vars.XMART_API_PUBLIC_URL }}
+    steps:
+        # GitHub clones the repository onto a temporary VM
+      - uses: actions/checkout@v4
+      
+      # Install R
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true     # Use Posit Package Manager for faster installation
+
+      #- uses: r-lib/actions/setup-renv@v2      # restores packages from renv.lock (cached)
+      
+      # Install packages
+      - name: install R packages if missing
+        run: |
+          Rscript -e "install.packages(c('httr','jsonlite'))"
+      
+      # Execute script to update the data
+      - name: Fetch data from API
+        run: Rscript /scripts/update-data - WHO VISTA app.R
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name  "github-actions[bot]" 
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Data refresh $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+        
+      # git config user.name  "github-actions[bot]"                                         --> Sets the commit author.
+      # git config user.email "41898282+github-actions[bot]@users.noreply.github.com"       --> Sets the commit email.
+      # git add data/                                                                       --> Stages all changes in data 
+      # if git diff --cached --quiet; then                                                  --> Check if the staged files are identical to what is already in GitHub
+      #     echo "No changes to commit."                                                    --> Result if no change
+      # else
+      #     git commit -m "Data refresh $(date -u +'%Y-%m-%d %H:%M UTC')"                   --> If data change then create a commit
+      #     git push                                                                        --> And push to Github
+      # fi
