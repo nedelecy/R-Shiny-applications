@@ -10,7 +10,7 @@ nrow <- 0
 for(dataset in c("REF_COUNTRIES", "REF_INDICATOR_CATEGORIES", "REF_INDICATORS", "REF_COVERAGE_CODES", "REF_COVERAGE_CATEGORIES", "REF_DISEASES",
                  "MT_AD_INTRO_LONG", "MT_RI_INTRO_DTP_BOOSTER", "AD_VACCINE_INTRODUCTIONS", "V_RI_INTRO_YEAR_LONG", 
                  "MT_AD_COV_NATIONAL_LONG",
-                 "MT_AD_INC_NATIONAL_LONG", "MT_AD_INC_RATE_NATIONAL_LONG"
+                 "MT_AD_INC_NATIONAL_LONG", "MT_AD_INC_RATE_NATIONAL_LONG",
                  "MT_AD_IND_LONG"))
 {
   # ---- 1. Load data ---------------------------------------------------------------
