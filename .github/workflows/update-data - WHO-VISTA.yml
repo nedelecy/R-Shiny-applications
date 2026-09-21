@@ -38,7 +38,7 @@ jobs:
       
       # Execute script to update the data
       - name: Fetch data from API
-        run: Rscript /scripts/test.R
+        run: Rscript scripts/test.R
 
       - name: Commit refreshed data
         run: |
