@@ -90,7 +90,7 @@ for(dataset in c("REF_COUNTRIES", "REF_INDICATOR_CATEGORIES", "REF_INDICATORS", 
   # ---- 3. Save atomically ------------------------------------------------------
   tmp <- tempfile(fileext = ".rds")
   saveRDS(df, tmp, compress = "xz")
-  #file.copy(tmp, paste("data/WHO VISTA app/",dataset,".rds", sep = ""), overwrite = TRUE)
+  file.copy(tmp, paste("data/WHO VISTA app/",dataset,".rds", sep = ""), overwrite = TRUE)
 
   
   message(dataset, " - Saved ", nrow(df), " rows at ", format(Sys.time(), tz = "UTC"), " UTC")
