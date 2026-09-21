@@ -14,6 +14,7 @@ for(dataset in c("REF_COUNTRIES", "REF_INDICATOR_CATEGORIES", "REF_INDICATORS", 
                  "MT_AD_IND_LONG"))
 {
   # ---- 1. Load data ---------------------------------------------------------------
+  
   if(dataset %in% c("REF_COUNTRIES"))
   {
     df <- fromJSON(rawToChar(GET(paste("https://xmart-api-public.who.int/WIISE/REF_COUNTRIES?$format=streaming&$select=CODE,NAMEWORKEN,WHOREGIONC,WHOMEMBER,WHO_LEGAL_STATUS_TITLE,GRP_ATRISK_YF,GRP_MENING_BELT,GRP_ATRISK_JE", sep = ""))$content))$value
@@ -89,10 +90,10 @@ for(dataset in c("REF_COUNTRIES", "REF_INDICATOR_CATEGORIES", "REF_INDICATORS", 
   # ---- 3. Save atomically ------------------------------------------------------
   tmp <- tempfile(fileext = ".rds")
   saveRDS(df, tmp, compress = "xz")
-  file.copy(tmp, paste("data/WHO VISTA app/",dataset,".rds", sep = ""), overwrite = TRUE)
+  #file.copy(tmp, paste("data/WHO VISTA app/",dataset,".rds", sep = ""), overwrite = TRUE)
 
   
-  message("Saved ", nrow(df), " rows at ", format(Sys.time(), tz = "UTC"), " UTC")
+  message(dataset, " - Saved ", nrow(df), " rows at ", format(Sys.time(), tz = "UTC"), " UTC")
   
   nrow <- nrow + nrow(df)
 }
