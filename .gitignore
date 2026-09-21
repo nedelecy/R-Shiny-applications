@@ -1,0 +1,10 @@
+.Rhistory
+.RData
+.Ruserdata
+
+logs/*
+
+renv/library/
+renv/staging/
+
+*.tmp
