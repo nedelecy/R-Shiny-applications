@@ -2,7 +2,7 @@ name: Update data for WHO VISTA app
 
 on:
   schedule:
-    - cron: "0 5 * * *"      # every day at 05:00 UTC (edit as needed)
+    - cron: '*/15 * * * *' #"0 5 * * *"      # every day at 05:00 UTC (edit as needed)
   workflow_dispatch:          # lets you run it manually from the Actions tab
 
 permissions:
