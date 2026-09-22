@@ -2,8 +2,8 @@ name: Update data for WHO VISTA app
 
 on:
   schedule:
-    - cron: '*/15 * * * *' #"0 5 * * *"      # every day at 05:00 UTC (edit as needed)
-  workflow_dispatch:          # lets you run it manually from the Actions tab
+    - cron: '*/5 * * * *'  # runs daily at 7:00 AM UTC
+  workflow_dispatch:     # allows manual trigger from GitHub UI
 
 permissions:
   contents: write             # needed to commit the refreshed .rds files
