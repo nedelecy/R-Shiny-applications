@@ -9,7 +9,7 @@ permissions:
   contents: write             # needed to commit the refreshed .rds files
 
 concurrency:
-  group: update-data
+  group: update-data-WHO-VISTA-app
   cancel-in-progress: false
 
 jobs:
