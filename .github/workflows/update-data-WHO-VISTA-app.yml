@@ -34,7 +34,7 @@ jobs:
       # Install packages
       - name: install R packages if missing
         run: |
-          Rscript -e "install.packages(c('httr','jsonlite'))"
+          Rscript -e "install.packages(c('httr','jsonlite','sqldf'))"
       
       # Execute script to update the data
       - name: Fetch data from API
