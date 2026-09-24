@@ -21,6 +21,12 @@ jobs:
       # Variables 
       XMART_API_PUBLIC_URL: ${{ vars.XMART_API_PUBLIC_URL }}
     steps:
+      - name: Debug trigger
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "run_id=${{ github.run_id }}"
+          date -u
+    
         # GitHub clones the repository onto a temporary VM
       - uses: actions/checkout@v4
       
